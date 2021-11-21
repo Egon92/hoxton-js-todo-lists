@@ -1464,7 +1464,7 @@ alert(message)
 
 // - Prompt the user for a user id
 
-let userId = Number(prompt("What's you user id?"))
+let userId = Number(prompt("What's the user id?"))
 
 //- Display an alert with the username and all the todos titles that belong 
 // to that user   
@@ -1481,27 +1481,30 @@ let secondMessage = ''
 
 for(const todo of todos){
   if(userId === todo.userId){
-      secondMessage += `Task: ${todo.title} \n`
+      if(todo.completed===true) secondMessage += `Task: ${todo.title}+ \n`
+      else secondMessage += `Task: ${todo.title}- \n`
+    
+    // secondMessage += `Task: - ${todo.title} \n`
       }
   }
-alert(`${userName}\n\n${secondMessage}`)        
-  
+// alert(`Todos of ${userName} are:\n\n ${secondMessage}`)        
+
 // After you select a user, add the option
 // to either show the todos or add a new todo to the list
 
 let conf = confirm (`Do you want to show the todo-s of ${userName}`)
-let newTodo= {} 
   
   if(conf){
-    alert(`${userName}\n\n${secondMessage}`)  
+    alert(`Todos of ${userName} are:\n\n ${secondMessage}`)
+    // alert(`${userName}\n\n${secondMessage}`)  
  }else if(!conf){
       alert(`We're proceeding to the creation of a new todo`) 
       Number(prompt(`Your number id`, userId))
       let newTodoId = Number(prompt('Add a new id'))
-     let newTodoTitle = prompt('Add a new title')
-     let newTodoBoolean = confirm('Do you want to complete it?')
+      let newTodoTitle = prompt('Add a new title')
+      let newTodoBoolean = confirm('Do you want to complete it?')
       
-     let newTodo = {
+     newTodo = {
           userId: userId,
           id: newTodoId,
           title: newTodoTitle,
@@ -1510,4 +1513,8 @@ let newTodo= {}
       
       todos.push(newTodo)
   }
+  let newTodo = {} 
+
+  
+
 
