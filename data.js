@@ -1451,51 +1451,66 @@ window.todos = todos
 //   names and what city they're from
 
 let message = ''
-
-for (const user of users){
+// welcome :: ()=> undefined
+function welcomeUser(){
+  for (const user of users){
     let name = user.name
     let id = user.id
     let city = user.address.city
 
-    message += `Hi! ${name}! Your id is ${id} and you are form ${city}! \n`
+    return message += `Hi! ${name}! Your id is ${id} and you are form ${city}! \n`
 }
 
 alert(message)
+}
 
 // - Prompt the user for a user id
 
-let userId = Number(prompt("What's the user id?"))
+
+// gerUserId:: () => number
+
+function getUserId(){
+  return Number(prompt("What's the user id?"))
+}
+let userId = getUserId()
 
 //- Display an alert with the username and all the todos titles that belong 
 // to that user   
-
-let userName = ''
-
-for (const user of users){
+let user = ''
+// findUser:: ()=> string
+function findUser(userId){
+  for (const user of users){
   if(userId === user.id){
-      userName = user.name
-      }
+      return user
+    }
   }
+}
+user = findUser(userId)
 
 let secondMessage = ''
 
-for(const todo of todos){
-  if(userId === todo.userId){
-      if(todo.completed===true) secondMessage += `Task: ${todo.title}+ \n`
-      else secondMessage += `Task: ${todo.title}- \n`
-    
-    // secondMessage += `Task: - ${todo.title} \n`
+function findUserTodos(userId){
+  for(const todo of todos){
+    if(userId === todo.userId){
+        if(todo.completed===true) secondMessage += `Task: ${todo.title} - is done \n`
+        else secondMessage += `Task: ${todo.title} - is not done \n`
       }
-  }
+    }
+  return secondMessage
+}
+let userTodos = findUserTodos(userId)
+
 // alert(`Todos of ${userName} are:\n\n ${secondMessage}`)        
 
 // After you select a user, add the option
 // to either show the todos or add a new todo to the list
+function addOrNotATodo(userId){
 
-let conf = confirm (`Do you want to show the todo-s of ${userName}`)
-  
+  let conf = confirm (`Do you want to show the todo-s of ${user.name}`)
+  let newTodo = {} 
+
   if(conf){
-    alert(`Todos of ${userName} are:\n\n ${secondMessage}`)
+    alert(`Todos of ${user.name} are:\n\n ${secondMessage}`)
     // alert(`${userName}\n\n${secondMessage}`)  
  }else if(!conf){
       alert(`We're proceeding to the creation of a new todo`) 
@@ -1505,16 +1520,14 @@ let conf = confirm (`Do you want to show the todo-s of ${userName}`)
       let newTodoBoolean = confirm('Do you want to complete it?')
       
      newTodo = {
-          userId: userId,
           id: newTodoId,
           title: newTodoTitle,
           completed: newTodoBoolean
       }
-      
-      todos.push(newTodo)
+    return todos.push(newTodo)
   }
-  let newTodo = {} 
+}
+addOrNotATodo(userId)
 
-  
 
 
